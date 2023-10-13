@@ -58,12 +58,12 @@ bool IsAvai(Node x, Node p) {
     } return true;
 }
 void Link(vector<Node> &sfn, Node &p) {    
-    int cnt = 0; // 记录成功连接的次数
+    int cnt = 0; // Count the number of nodes connected successfully
     GetPosition(p);
     while(cnt < edge) {
         _cnt_++;
-        int index = RandInt(sfn.size());// 随机生成 0~sfn.size() - 1 之间整数选取已有节点
-        double rand_num = RandDouble(); // 随机生成 0~1 之间浮点数判断是否连接
+        int index = RandInt(sfn.size()); // Generate a random integer in the range of 0~sfn.size() - 1 as the index
+        double rand_num = RandDouble();  // Generate a random double between 0~1 to determine whether to link or not
         double prob_link;
         if(k_sum > 4) {
             prob_link = (double) sfn[index].k / k_sum;             
@@ -86,7 +86,7 @@ void Link(vector<Node> &sfn, Node &p) {
     sfn.push_back(p);
 }
 
-// 普通函数区
+// Ordinary Functions
 void Init(vector<Node> &sfn, int m0) {
     for(int i = 0; i < m0; i++) {
         Node p;
@@ -102,14 +102,14 @@ void ShowInfo(int index, double rand_num, double prob_link, int cnt) {
 }
 template <class T>
 void ShowCPUTimes(T &start) {
-    auto end = std::chrono::system_clock::now(); // 记录结束时间
-    std::chrono::duration<double> elapsed_seconds = end - start; // 计算花费的时间
+    auto end = std::chrono::system_clock::now(); // Record the ending time
+    std::chrono::duration<double> elapsed_seconds = end - start; // Calculate the time spent
     std::cout << "Elapsed time: " << elapsed_seconds.count() << "s\t   ";
     std::cout << "Calculation times: " << _cnt_ << " times" << endl << endl;
 }
 
-// 随机数生成函数
-double RandDouble() { // 生成0~1之间随机浮点数，判断是否与查找到的结点连接
+// Random number generation function
+double RandDouble() { // Generate a random double between 0~1 in order to determine whether to link to the found node or not
     double random_double = static_cast<double>(rand()) / static_cast<double>(RAND_MAX); 
     return random_double;
 }
@@ -117,12 +117,12 @@ double RandDouble(int range) {
     double random_double = static_cast<double>(rand()) / RAND_MAX * range;
     return random_double;
 }
-int RandInt(int num) { // 生成所有结点数(num)之内的随机整型数据，用以随机查找结点判断是否连接
+int RandInt(int num) { // Generate a random integer lower than num-of-nodes as index to find node
     int random_int = static_cast<int>(rand()) % num;  
     return random_int; 
 }
 
-// 数据保存函数（属于友元函数）
+// Data saving functions
 void CalculateDistribution(vector<Node> sfn, vector<double> &dis) {
     int k_max = sfn[0].k;
     for(int i = 0; i < sfn.size(); i++) {
@@ -167,15 +167,15 @@ void SavePosition(vector<Node> sfn, const string &filename) {
 }
 
 int main() {
-    //  ========= 网络生成 =========  //
-    auto start = std::chrono::system_clock::now(); // 记录开始时间
-    srand(static_cast<unsigned int>(time(nullptr))); // 使用当前时间作为随机数生成器的种子
+    //  ========= Generating Network =========  //
+    auto start = std::chrono::system_clock::now();   // Record the start time
+    srand(static_cast<unsigned int>(time(nullptr))); // Using current time as the seed of random nums
     int m, m0, t;
     cout << "Input m, m0, t: " << endl;
     cin >> m >> m0 >> t;
     range = t; edge = m;
     vector<Node> sfn;
-    // 初始化无尺度网络，输入的m0代表初始节点数
+    // Initiate the Scale-Free Network, input m0 as the init num of nodes
     Init(sfn, m0);
     int count = 0;
     for(int i = 0, j = 0; i < t; i++, j++) {
@@ -192,11 +192,11 @@ int main() {
     ShowCPUTimes(start);
     cout << "<<<<<<<<--------------========== FINISHED =========--------------->>>>>>>>" << endl;
 
-    //  ========= 度分布计算及其存储 =========  //
+    //  ========= Degree distribution calculation and storage =========  //
     vector<double> dis;
     CalculateDistribution(sfn, dis);
     SaveDistribution(dis, "kDistribution_data.csv");
 
-    //  ========= 节点地址指向存储 =========  //
+    //  ========= Node addresses storage =========  //
     SavePosition(sfn, "locations.csv");
 }
