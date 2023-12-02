@@ -1,8 +1,26 @@
 # drew_Scale-Free_Network
-## Create a Scale-Free_Network using cpp
-Input the num you like to initialize and the network will be generated soon after that  
+# 基于C++构建的无尺度网络模型 
+##### by drew in 2023 
+#
+## S1文件夹代码实现及其功能
 
-Data will be saved in .csv files  
-## How to make analysis
-To analyze data, you may use python, numpy, pandas, matplotlib.pyplot or something like that  
+### 粗犷的结构和朴素的实现
+s1文件夹代码实现了无尺度网络建模，获得**度分布数据**，**随机地址坐标分布数据**
+
+直接运行**Python**脚本可获得相应数据可视化
+
+#
+## S2文件夹代码实现及其功能
+### 不那么粗犷的结构和依旧朴素的实现
+s2文件夹代码实现了***全新的*** 无尺度网络建模，获得**度分布数据**（用于验证无尺度特性），**平均最短路径**，**聚类系数**（无尺度网络的小世界特性验证）
+
+直接运行**Python**脚本可获得相应数据可视化
+
+#
+**注意: ** 
+
+***代码详解和各项理解在相应文件夹PDF中***
+
+***输入数据量过大会导致网络生成时间指数级增加，且后续生成图片或者计算最短路径等操作都会受相应影响***
+
 
